@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/UI/DevTools.tscn" type="PackedScene" id=1]
+
+[node name="Game" type="Node2D"]
+
+[node name="DevTools" parent="." instance=ExtResource( 1 )]
+margin_left = 1.52588e-05
+margin_top = 2.10527
+margin_right = 1.52588e-05
+margin_bottom = 2.10527

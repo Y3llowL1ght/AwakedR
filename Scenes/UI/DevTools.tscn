@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Resourses/Images/icon.png" type="Texture" id=1]
+
+[node name="DevTools" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PC" type="PanelContainer" parent="."]
+margin_top = 1.0
+margin_right = 84.0
+margin_bottom = 69.0
+
+[node name="VBC" type="VBoxContainer" parent="PC"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 83.0
+margin_bottom = 131.0
+
+[node name="DataL1" type="Label" parent="PC/VBC"]
+margin_right = 76.0
+margin_bottom = 14.0
+text = "Test1"
+
+[node name="Datal2" type="Label" parent="PC/VBC"]
+margin_top = 18.0
+margin_right = 76.0
+margin_bottom = 32.0
+text = "Test1"
+
+[node name="DataL3" type="Label" parent="PC/VBC"]
+margin_top = 36.0
+margin_right = 76.0
+margin_bottom = 50.0
+text = "Test1"
+
+[node name="TestB" type="Button" parent="PC/VBC"]
+margin_top = 54.0
+margin_right = 76.0
+margin_bottom = 124.0
+icon = ExtResource( 1 )
