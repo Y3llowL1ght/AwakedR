@@ -3,112 +3,169 @@ using System.Collections.Generic;
 
 namespace GridLib{
 
-    //grid of objects of type T
+    //Grid of objects of type T
     public class Grid<T>{
         
-        public Dictionary<int, GridObject<T>> gridObjects;
-        public List<int> freeIds;
-        public int[,] grid{get;}
-        public GCoord size;
+        public Dictionary<int, GridObject<T>> GridObjects;
+        public List<int> FreeIDs;
+        public int[,] GridArray{get;}
+        public GCoord GridSize;
 
-        //Constructor
         public Grid(int xsize, int ysize)
         {
             //initializing Grid itself
-            this.size = new GCoord(xsize,ysize);
-            this.grid = new int[xsize, ysize];
+            this.GridSize = new GCoord(xsize,ysize);
+            this.GridArray = new int[xsize, ysize];
 
             //list of gObjects
-            this.gridObjects = new Dictionary<int, GridObject<T>>();
+            this.GridObjects = new Dictionary<int, GridObject<T>>();
             //Initializing "EMPTY CELL gObject"
-            this.gridObjects.Add(0,new GridObject<T>(0));
+            this.GridObjects.Add(0,new GridObject<T>(0));
 
-            freeIds = new List<int>();
+            FreeIDs = new List<int>();
         }
         
-        //Place method. that works with rectangle objects
-        public bool Place(T gObject, GCoord coordinate, GCoord size){
-            if(FitsRect(coordinate,size)){
+        //Place method that works with rectangle shapes
+        public int Place(T gObject, GCoord coordinate, GCoord size){
+            if(FitsPattern(coordinate,size)){
 
                 //finds Id for the place method
-                int assignedID = -1;
-                if (freeIds.Count > 0){
-                    assignedID = freeIds[0];
-                    freeIds.Remove(assignedID);
+                int assignedID;
+                if (FreeIDs.Count > 0){
+                    assignedID = FreeIDs[0];
+                    FreeIDs.Remove(assignedID);
                 }else{
-                    assignedID = gridObjects.Count + 1;
+                    assignedID = GridObjects.Count + 1;
                 }
 
-                //sets up grid cells
+                //sets up Grid cells
                 List<GCoord> assignedCells = new List<GCoord>();
                 for (int y = coordinate.y; y < coordinate.y + size.y; y++)
                 {
                     for (int x = coordinate.x; x < coordinate.x + size.x; x++){
-                        if (grid[x,y] == 0 )
-                        {
-                            grid[x,y] = assignedID;
-                            assignedCells.Add(new GCoord(x,y));
-                        }
+                        
+                        GridArray[x,y] = assignedID;
+                        assignedCells.Add(new GCoord(x,y));
+                        
                     }   
                 }
 
                 //Creates gObject and adds it to gridObjects dictionary with corresponding id
-                gridObjects.Add(assignedID,new GridObject<T>(assignedCells,assignedID,gObject));
+                GridObjects.Add(assignedID,new GridObject<T>(assignedCells,assignedID,gObject));
 
-                return true;
+                return assignedID;
             }else{
-                return false;
+                return 0;
             }
                 
         }
 
-        //Removes existing grid object by id
-        public void Remove(int id){
-            GridObject<T> gridObject = gridObjects[id];
-            foreach (var cell in gridObject.relatedCells)
-            {
-                grid[cell.x, cell.y] = 0;
+        //Place method that works with custom shapes
+        public int Place(T gObject, GCoord origin, List<GCoord> pattern){
+            if(FitsPattern(origin, pattern)){
+
+                //finds Id for the place method
+                int assignedID;
+                if (FreeIDs.Count > 0){
+                    assignedID = FreeIDs[0];
+                    FreeIDs.Remove(assignedID);
+                }else{
+                    assignedID = GridObjects.Count + 1;
+                }
+
+                //sets up Grid cells
+                List<GCoord> assignedCells = new List<GCoord>();
+
+                foreach (GCoord localc in pattern){
+                    int cx = origin.x + localc.x, cy = origin.y + localc.y;
+                    GridArray[cx,cy] = assignedID;
+                    assignedCells.Add(new GCoord(cx,cy));
+                }
+
+                //Creates gObject and adds it to gridObjects dictionary with corresponding id
+                GridObjects.Add(assignedID,new GridObject<T>(assignedCells,assignedID,gObject));
+
+                return assignedID;
+            }else{
+                return 0;
             }
-            //freeing id
-            freeIds.Add(id);
-            //deleting from dictionary
-            gridObjects.Remove(id);
+                
         }
 
-        //Checks if rectangle (coordinate : coordinate + size) is all empty
-        public bool FitsRect(GCoord coordinate, GCoord size){
-            bool gate = true;
-            for (int x = coordinate.x; x < coordinate.x + size.x; x++)
+        //Removes existing Grid object by id
+        public void Remove(int id){
+            GridObject<T> gridObject = GridObjects[id];
+            foreach (var cell in gridObject.relatedCells)
             {
-                for (int y = coordinate.y; y < coordinate.y + size.y; y++){
-                    if (grid[x,y] != 0 )
-                    {
-                        gate = false;
-                    }
+                GridArray[cell.x, cell.y] = 0;
+            }
+            
+            FreeIDs.Add(id);
+            GridObjects.Remove(id);
+        }
+
+        //Checks if rectangle shape is in boundaries of the grid
+        public bool IsInMapRange(GCoord origin, GCoord size){
+            return origin.x + size.x <= GridSize.x && origin.y + size.y <= GridSize.y;
+        }
+
+        //Checks if cystom shape is in boundaries of the grid
+        public bool IsInMapRange(GCoord origin, List<GCoord> pattern){
+            bool gate = true;
+            foreach (GCoord localc in pattern)
+            {
+                gate = (origin.x + localc.x <= GridSize.x && origin.y + localc.y <= GridSize.y);
+            }
+            return gate;
+        }
+
+        //Checks if rectangle (origin : origin + size) is all empty 
+        public bool FitsPattern(GCoord origin, GCoord size){
+            bool gate = IsInMapRange(origin, size);
+            if (!gate) return gate;
+            for (int x = origin.x; x < origin.x + size.x; x++)
+            {
+                for (int y = origin.y; y < origin.y + size.y; y++){
+                    gate = (GridArray[x,y] == 0);
                 }   
             }
             return gate;
         }
 
-        public T[,] GridAsObjects(){
-            T[,] objectgrid = new T[size.x,size.y];
-
-            for (int y = 0; y < size.y; y++)
+        //Detects any Grid collision provided with origin coordinate in global Grid and list of local coordinates relative to origin
+        public bool FitsPattern(GCoord origin, List<GCoord> pattern){
+            bool gate = IsInMapRange(origin, pattern);
+            if (!gate) return gate;
+            foreach (GCoord localc in pattern)
             {
-              for (int x = 0; x < size.x; x++)
+                gate = (GridArray[origin.x + localc.x, origin.y + localc.y] == 0);
+            }
+            return gate;
+        }
+
+        //Represents Grid as objects instead ids
+        public T[,] GridAsObjects(){
+            T[,] objectgrid = new T[GridSize.x,GridSize.y];
+
+            for (int y = 0; y < GridSize.y; y++)
+            {
+              for (int x = 0; x < GridSize.x; x++)
               {
-                  objectgrid[x,y] = gridObjects[grid[x,y]].gObject;
+                  objectgrid[x,y] = GridObjects[GridArray[x,y]].gObject;
               }  
             }
 
             return objectgrid;
         }
 
+        //Returns object at coordinates
         public T ObjectAt(GCoord coord){
-            return gridObjects[grid[coord.x,coord.y]].gObject;
+            return GridObjects[GridArray[coord.x,coord.y]].gObject;
         }
+
+        //Returns GridObject at coordinates
         public GridObject<T> GridObjectAt(GCoord coord){
-            return gridObjects[grid[coord.x,coord.y]];
+            return GridObjects[GridArray[coord.x,coord.y]];
         }
         
         
@@ -144,6 +201,8 @@ namespace GridLib{
             this.y = y;
         }
     }
+
+
 
 
 
