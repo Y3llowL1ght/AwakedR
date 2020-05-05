@@ -52,9 +52,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Engine\Grid\Grid.cs" />
+    <Compile Include="Core\ItemSystem\EffectClasses\ActiveEffect.cs" />
+    <Compile Include="Core\ItemSystem\EffectClasses\PassiveEffect.cs" />
+    <Compile Include="Core\ItemSystem\EffectClasses\TriggerEffect.cs" />
+    <Compile Include="Core\ItemSystem\InventorySlot.cs" />
+    <Compile Include="Core\ItemSystem\Item.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\IActiveItem.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\IEquipmentItem.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\ConsumableItem.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\PassiveItem.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\ReusableItem.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\SuitPart.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\SuitUpgrade.cs" />
+    <Compile Include="Core\ItemSystem\ItemClasses\Weapon.cs" />
+    <Compile Include="Core\ItemSystem\ItemEffect.cs" />
+    <Compile Include="Core\ItemSystem\PlayerInventory.cs" />
     <Compile Include="Core\Misc\GridDrawer.cs" />
-    
     <Compile Include="Core\Player\PlayerMovement.cs" />
+    <Compile Include="Core\Player\PlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

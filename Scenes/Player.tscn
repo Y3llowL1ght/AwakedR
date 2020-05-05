@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Core/Player/PlayerMovement.cs" type="Script" id=1]
+[ext_resource path="res://Resourses/Images/icon.png" type="Texture" id=2]
+[ext_resource path="res://Resourses/Images/light.png" type="Texture" id=3]
+[ext_resource path="res://Core/Player/PlayerStats.cs" type="Script" id=4]
+[ext_resource path="res://Core/ItemSystem/ItemClasses/Weapon.cs" type="Script" id=5]
+[ext_resource path="res://Core/ItemSystem/ItemEffect.cs" type="Script" id=6]
+[ext_resource path="res://Core/ItemSystem/InventorySlot.cs" type="Script" id=7]
+[ext_resource path="res://Core/ItemSystem/PlayerInventory.cs" type="Script" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.62357
+
+[node name="Player" type="Node2D"]
+
+[node name="PlayerStats" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="PlayerInventory" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="InventorySlotX" type="Node" parent="PlayerInventory"]
+script = ExtResource( 7 )
+
+[node name="WeaponX" type="Node" parent="PlayerInventory/InventorySlotX"]
+script = ExtResource( 5 )
+
+[node name="ItemEffectX" type="Node" parent="PlayerInventory/InventorySlotX/WeaponX"]
+script = ExtResource( 6 )
+
+[node name="ItemEffectY" type="Node" parent="PlayerInventory/InventorySlotX/WeaponX"]
+
+[node name="PlayerMovement" type="KinematicBody2D" parent="."]
+position = Vector2( -0.418694, -0.418694 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Prototype" type="Sprite" parent="PlayerMovement"]
+position = Vector2( -0.225669, -0.191547 )
+rotation = 1.5708
+scale = Vector2( 0.120949, 0.127114 )
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="PlayerMovement/Prototype"]
+position = Vector2( -0.334803, -10.1949 )
+scale = Vector2( 0.340808, 1.13938 )
+texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="PlayerMovement/Prototype"]
+visible = false
+position = Vector2( 6.2272, -3.10583 )
+rotation = -1.5708
+scale = Vector2( 14.174, 14.8252 )
+texture = ExtResource( 3 )
+texture_scale = 0.77
+energy = 1.53
+shadow_enabled = true
+shadow_filter = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMovement"]
+shape = SubResource( 1 )
