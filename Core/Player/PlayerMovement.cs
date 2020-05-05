@@ -23,13 +23,13 @@ public class PlayerMovement : KinematicBody2D
         if (direction.Length() > 10)
         {
             Rotation = direction.Angle();
+            
         }
     }
 
     public override void _Ready(){
-        var stats = (PlayerStats)GetNode("../PlayerStats");
         
-        MaxSpeed = (float)stats.MovementSpeed;
+        //MaxSpeed = (float)PlayerStats;
         Acceleration = 10000;
     }
 

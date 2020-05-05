@@ -1,0 +1,135 @@
+{
+	"sheets": [
+		{
+			"name": "CharacterStats",
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "Stat"
+				},
+				{
+					"typeStr": "4",
+					"name": "Value"
+				}
+			],
+			"lines": [
+				{
+					"Value": 0,
+					"Stat": "Health"
+				},
+				{
+					"Stat": "MaxHealth",
+					"Value": 100
+				},
+				{
+					"Stat": "BaseHealthRegen",
+					"Value": 10
+				},
+				{
+					"Stat": "HealthRegen",
+					"Value": 0
+				},
+				{
+					"Stat": "Shields",
+					"Value": 0
+				},
+				{
+					"Stat": "MaxShields",
+					"Value": 0
+				},
+				{
+					"Stat": "Armor",
+					"Value": 0
+				},
+				{
+					"Stat": "Energy",
+					"Value": 0
+				},
+				{
+					"Stat": "MaxEnergy",
+					"Value": 100
+				},
+				{
+					"Stat": "BaseEnergyRegen",
+					"Value": 0
+				},
+				{
+					"Stat": "EnergyRegen",
+					"Value": 0
+				},
+				{
+					"Stat": "Heat",
+					"Value": 0
+				},
+				{
+					"Stat": "MaxHeat",
+					"Value": 100
+				},
+				{
+					"Stat": "BaseHeatVent",
+					"Value": 0
+				},
+				{
+					"Stat": "Temperature",
+					"Value": 0
+				},
+				{
+					"Stat": "MaxTemp",
+					"Value": 50
+				},
+				{
+					"Stat": "MinTemp",
+					"Value": -5
+				},
+				{
+					"Stat": "ComfortTemp",
+					"Value": 31
+				},
+				{
+					"Stat": "TempChangeModifier",
+					"Value": 1
+				},
+				{
+					"Stat": "TempChangeEnergyCost",
+					"Value": 1
+				},
+				{
+					"Stat": "Experience",
+					"Value": 0
+				},
+				{
+					"Stat": "ExpCost",
+					"Value": 100
+				},
+				{
+					"Stat": "Level",
+					"Value": 0
+				},
+				{
+					"Stat": "",
+					"Value": 0
+				},
+				{
+					"Stat": "",
+					"Value": 0
+				},
+				{
+					"Stat": "",
+					"Value": 0
+				},
+				{
+					"Stat": "",
+					"Value": 0
+				},
+				{
+					"Stat": "",
+					"Value": 0
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}

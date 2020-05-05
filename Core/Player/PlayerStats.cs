@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+//using Newtonsoft.Json;
 
 
 public class PlayerStats : Node2D
@@ -41,13 +43,13 @@ public class PlayerStats : Node2D
     //Other
 [Export]public double MovementSpeed = 200;
 
-    //
+    //Dictionary
+    public Dictionary<string, double> DStats;
 
     public override void _Ready()
     {
-        Health = HealthMax;
-        Energy = EnergyMax;
-        //TakeDamage(100);
+
+        //JSON
         
     }
 
