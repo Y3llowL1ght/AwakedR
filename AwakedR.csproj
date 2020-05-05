@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Tools</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7DB7957B-E0F5-470E-B8CC-26A3CD1495CA}</ProjectGuid>
+    <ProjectGuid>{E456BC82-8749-4493-864A-3A0B35B81C0C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <OutputPath>.mono\temp\bin\$(Configuration)</OutputPath>
     <RootNamespace>AwakedR</RootNamespace>
     <AssemblyName>AwakedR</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GodotProjectGeneratorVersion>1.0.7374.16792</GodotProjectGeneratorVersion>
     <BaseIntermediateOutputPath>.mono\temp\obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
@@ -43,42 +43,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
-      <HintPath>$(ProjectDir)\.mono\assemblies\$(ApiConfiguration)\GodotSharp.dll</HintPath>
       <Private>False</Private>
+      <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharp.dll</HintPath>
     </Reference>
     <Reference Include="GodotSharpEditor" Condition=" '$(Configuration)' == 'Tools' ">
-      <HintPath>$(ProjectDir)\.mono\assemblies\$(ApiConfiguration)\GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
+      <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharpEditor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Engine\Grid\Grid.cs" />
-    <Compile Include="Core\ItemSystem\EffectClasses\ActiveEffect.cs" />
-    <Compile Include="Core\ItemSystem\EffectClasses\PassiveEffect.cs" />
-    <Compile Include="Core\ItemSystem\EffectClasses\TriggerEffect.cs" />
-    <Compile Include="Core\ItemSystem\InventorySlot.cs" />
-    <Compile Include="Core\ItemSystem\Item.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\IActiveItem.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\IEquipmentItem.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\ConsumableItem.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\PassiveItem.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\ReusableItem.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\SuitPart.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\SuitUpgrade.cs" />
-    <Compile Include="Core\ItemSystem\ItemClasses\Weapon.cs" />
-    <Compile Include="Core\ItemSystem\ItemEffect.cs" />
-    <Compile Include="Core\ItemSystem\PlayerInventory.cs" />
-    <Compile Include="Core\Misc\GridDrawer.cs" />
-    <Compile Include="Core\Player\PlayerMovement.cs" />
-    <Compile Include="Core\Player\PlayerStats.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="**\*.cs" />
   </ItemGroup>
-  <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json">
-          <Version>11.0.2</Version>
-        </PackageReference>
-    </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
-

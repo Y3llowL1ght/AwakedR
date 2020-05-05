@@ -49,7 +49,7 @@ public class PlayerStats : Node2D
     public override void _Ready()
     {
 
-        //JSON
+        //Newtonsoft.Json
         
     }
 
